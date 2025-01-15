@@ -1,0 +1,12 @@
+@use './reset.scss';
+@use './toast.scss';
+@use './modal.scss';
+
+.is-dragging {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  color: white;
+}
+
+.filter-item.active {
+  background: #0f548c;
+}

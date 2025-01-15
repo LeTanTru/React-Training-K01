@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App Drag Drop</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="max-w-[800px] mx-auto p-5">
+      <h1 class="font-bold text-white text-3xl text-center">
+        Todo App Drag - Drop
+      </h1>
+      <div class="w-full flex gap-x-5 mt-5">
+        <form class="flex-1">
+          <div
+            class="bg-[#f0f0f0] rounded-lg min-h-[35px] flex items-center px-[12px] py-[15px] gap-x-2"
+          >
+            <i
+              class="fa-solid fa-magnifying-glass text-[16px] text-[#7a7a7a]"
+            ></i
+            ><input
+              type="text"
+              placeholder="Search..."
+              class="search-input text-[16px] placeholder:text-[#7a7a7a] text-[#7a7a7a] font-medium w-full h-full"
+              value=""
+            />
+          </div>
+          <div class="filter w-full grid grid-cols-2 gap-4 mt-4"></div>
+        </form>
+        <div class="flex-1">
+          <form
+            class="form-input flex items-center justify-between border-[2px] border-solid border-white px-4 py-2 pr-0 rounded-lg hover:border-[#26a389] transition-all ease-linear duration-300"
+          >
+            <input
+              type="text"
+              class="input-todo text-white w-full placeholder:text-gray-200 leading-[40px]"
+              placeholder="Enter new to do..."
+            />
+            <button
+              class="btn-add-todo text-white px-4 py-2 mr-2 rounded-lg bg-[#26a389] transition-all ease-linear duration-300 cursor-pointer hover:bg-[#379a34] hover:text-gray-200"
+            >
+              Add
+            </button>
+          </form>
+          <div class="todo-list w-full pt-2 flex flex-col gap-y-2"></div>
+        </div>
+      </div>
+    </div>
+    <div id="toast"></div>
+    <div id="modal-container"></div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.2.0/uuid.min.js"
+      integrity="sha512-X0CJvcClD8EXFn5Oq8BD5lIsznKDfxb0Sf9Wr8MCCTyAEWaAAxr0Jvm3qyofsmN7eSHMZ0PPQGjVKroLAfexrA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./js/tailwind.min.js"></script>
+    <script src="./js/app.js" type="module"></script>
+  </body>
+</html>
