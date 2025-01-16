@@ -36,7 +36,9 @@ const App = () => {
     setStoredData(todoList);
   };
   const filterTodos = todoList.filter((todoItem) => {
-    if (!todoItem.name.toLowerCase().includes(searchText.toLowerCase()))
+    if (
+      !todoItem.name.toLowerCase().includes(debouncedSearchText.toLowerCase())
+    )
       return false;
     switch (selectedFilterId) {
       case 'all':
