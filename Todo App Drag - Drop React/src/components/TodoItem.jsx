@@ -18,7 +18,6 @@ const TodoItem = ({
   handleDelete,
   handleDragStart,
   handleDragOver,
-  handleDrop,
   handleDragEnd
 }) => {
   return (
@@ -27,7 +26,6 @@ const TodoItem = ({
       onClick={() => handleUpdate(id)}
       onDragStart={(event) => handleDragStart(event, id)}
       onDragOver={(event) => handleDragOver(event, id)}
-      // onDrop={(event) => handleDrop(event, id)}
       onDragEnd={(event) => handleDragEnd(event)}
       className={`flex cursor-pointer justify-between rounded-lg p-2 shadow-md ${
         isCompleted && !isDeleted
