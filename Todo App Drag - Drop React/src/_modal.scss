@@ -110,3 +110,11 @@
     transform: translateY(-100%);
   }
 }
+
+.fadeOut {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+.slideUp {
+  animation: slideUp 0.3s ease forwards;
+}

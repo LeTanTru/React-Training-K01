@@ -1,11 +1,10 @@
 import FilterPanel from '@/components/FilterPanel';
-import Modal from '@/components/Modal';
-import Toast from '@/components/Toast';
+import ModalChangeValue from '@/components/ModalChangeValue';
+import ToastContainer from '@/components/ToastContainer';
 import TodoList from '@/components/TodoList';
 import { initData } from '@/constants/constants';
 import useDebounce from '@/hooks/useDebounce';
 import useLocalStorage from '@/hooks/useLocalStorage';
-import { modalChangeValue } from '@/utils/modal';
 import { toast } from '@/utils/toast';
 import { useRef, useState } from 'react';
 
@@ -15,6 +14,18 @@ const App = () => {
   const [selectedFilterId, setSelectedFilterId] = useState('all');
   const [searchText, setSearchText] = useState('');
   const [draggedItemId, setDraggedItemId] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedTodo, setSelectedTodo] = useState(null);
+  const [toasts, setToasts] = useState([]);
+
+  const addToast = ({ title, message, type, duration }) => {
+    const id = Date.now();
+    setToasts((prev) => [...prev, { id, title, message, type, duration }]);
+  };
+
+  const removeToast = (id) => {
+    setToasts((prev) => prev.filter((toast) => toast.id !== id));
+  };
 
   const debouncedSearchText = useDebounce(searchText, 300);
 
@@ -35,6 +46,7 @@ const App = () => {
     }
     setStoredData(todoList);
   };
+
   const filterTodos = todoList.filter((todoItem) => {
     if (
       !todoItem.name.toLowerCase().includes(debouncedSearchText.toLowerCase())
@@ -56,6 +68,7 @@ const App = () => {
         return true;
     }
   });
+
   const countByFilters = todoList.reduce(
     (acc, item) => {
       let newAcc = { ...acc };
@@ -76,6 +89,7 @@ const App = () => {
       'not-completed': 0
     }
   );
+
   const handleComplete = (todoId) => {
     const todo = todoList.find((item) => item.id === todoId);
     if (!todo) return;
@@ -95,6 +109,7 @@ const App = () => {
     setTodoList(newTodoList);
     setStoredData(newTodoList);
   };
+
   const handleMarkImportant = (event, todoId) => {
     event.stopPropagation();
     const todo = todoList.find((item) => item.id === todoId);
@@ -107,6 +122,17 @@ const App = () => {
         ? `Todo ${todo.name} is not important`
         : `Todo ${todo.name} is important`
     });
+
+    // addToast({
+    //   title: todo.isImportant
+    //     ? 'Removed from important'
+    //     : 'Marked as important',
+    //   type: todo.isImportant ? 'info' : 'success',
+    //   message: todo.isImportant
+    //     ? `Todo ${todo.name} is not important`
+    //     : `Todo ${todo.name} is important`
+    // });
+
     const newTodoList = todoList.map((item) => {
       if (item.id === todoId) {
         return { ...item, isImportant: !item.isImportant };
@@ -116,6 +142,7 @@ const App = () => {
     setTodoList(newTodoList);
     setStoredData(newTodoList);
   };
+
   const handleDelete = (event, todoId) => {
     event.stopPropagation();
     const todo = todoList.find((item) => item.id === todoId);
@@ -137,43 +164,42 @@ const App = () => {
     setTodoList(newTodoList);
     setStoredData(newTodoList);
   };
+
   const handleUpdate = (todoId) => {
     const todo = todoList.find((item) => item.id === todoId);
 
     if (todo.isDeleted) return;
 
-    modalChangeValue({
-      title: 'Update todo',
-      inputHtml: `
-        <input id='input' type="text" class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 transition-all ease-linear duration-300' name="name" value="${todo.name}" />
-    `,
-      actions: [
-        {
-          label: 'Cancel',
-          type: 'secondary'
-        },
-        {
-          label: 'Save',
-          type: 'primary',
-          callback: (inputValue) => {
-            const newTodoList = todoList.map((item) => {
-              if (item.id === todoId) {
-                return { ...item, name: inputValue.name };
-              }
-              return item;
-            });
-            setTodoList(newTodoList);
-            setStoredData(newTodoList);
-            toast({
-              title: 'Updated',
-              type: 'success',
-              message: `Todo ${todo.name} is updated to ${inputValue.name}`
-            });
-          }
-        }
-      ]
-    });
+    setIsModalVisible(true);
+    setSelectedTodo(todo);
   };
+
+  const actions = [
+    {
+      label: 'Cancel',
+      type: 'secondary'
+    },
+    {
+      label: 'Save',
+      type: 'primary',
+      callback: (inputValue) => {
+        const newTodoList = todoList.map((item) => {
+          if (item.id === selectedTodo.id) {
+            return { ...item, name: inputValue.name };
+          }
+          return item;
+        });
+        setTodoList(newTodoList);
+        setStoredData(newTodoList);
+        toast({
+          title: 'Updated',
+          type: 'success',
+          message: `Todo ${selectedTodo.name} is updated to ${inputValue.name}`
+        });
+      }
+    }
+  ];
+
   const handleDragStart = (event, todoId) => {
     event.target.classList.add('is-dragging');
     setDraggedItemId(todoId);
@@ -234,8 +260,16 @@ const App = () => {
           </div>
         </div>
       </div>
-      <Toast />
-      <Modal />
+
+      {isModalVisible && (
+        <ModalChangeValue
+          title='Update todo'
+          onClose={() => setIsModalVisible(false)}
+          inputHtml={`<input id='input' type="text" class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 transition-all ease-linear duration-300' name="name" value="${selectedTodo.name}" />`}
+          actions={actions}
+        />
+      )}
+      <ToastContainer />
     </>
   );
 };
