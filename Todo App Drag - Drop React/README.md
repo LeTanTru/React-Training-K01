@@ -1,5 +1,1 @@
-### Các thành phần của React
-
-- Components: Functional Components & Class Components
-- Props
-- State
+`npm install` $=>$ `npm run dev`
