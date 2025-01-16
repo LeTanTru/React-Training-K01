@@ -35,18 +35,20 @@ const App = () => {
     }
     setStoredData(todoList);
   };
-  const filterTodos = todoList.filter((item) => {
-    if (!item.name.includes(debouncedSearchText)) return false;
-
+  const filterTodos = todoList.filter((todoItem) => {
+    if (!todoItem.name.toLowerCase().includes(searchText.toLowerCase()))
+      return false;
     switch (selectedFilterId) {
       case 'all':
         return true;
       case 'completed':
-        return item.isCompleted && !item.isDeleted;
+        return todoItem.isCompleted && !todoItem.isDeleted;
+      case 'not-completed':
+        return !todoItem.isCompleted && !todoItem.isDeleted;
       case 'important':
-        return item.isImportant && !item.isDeleted;
+        return todoItem.isImportant && !todoItem.isDeleted;
       case 'deleted':
-        return item.isDeleted;
+        return todoItem.isDeleted;
 
       default:
         return true;
@@ -72,8 +74,9 @@ const App = () => {
       'not-completed': 0
     }
   );
-  const handleComplete = (event, todoId) => {
+  const handleComplete = (todoId) => {
     const todo = todoList.find((item) => item.id === todoId);
+    if (!todo) return;
     toast({
       title: todo.isCompleted ? 'Uncompleted' : 'Completed',
       type: todo.isCompleted ? 'info' : 'success',
@@ -134,6 +137,9 @@ const App = () => {
   };
   const handleUpdate = (todoId) => {
     const todo = todoList.find((item) => item.id === todoId);
+
+    if (todo.isDeleted) return;
+
     modalChangeValue({
       title: 'Update todo',
       inputHtml: `
@@ -191,22 +197,6 @@ const App = () => {
     }
   };
 
-  const handleDrop = (event, todoId) => {
-    event.preventDefault();
-    // const draggedItemIndex = todoList.findIndex(
-    //   (todo) => todo.id === draggedItemId
-    // );
-    // const targetItemIndex = todoList.findIndex((todo) => todo.id === todoId);
-
-    // if (draggedItemIndex !== -1 && targetItemIndex !== -1) {
-    //   const updatedTodoList = [...todoList];
-    //   const [draggedItem] = updatedTodoList.splice(draggedItemIndex, 1);
-    //   updatedTodoList.splice(targetItemIndex, 0, draggedItem);
-    //   setTodoList(updatedTodoList);
-    //   setStoredData(updatedTodoList);
-    // }
-  };
-
   return (
     <>
       <div className='mx-auto max-w-[800px] p-5'>
@@ -237,7 +227,6 @@ const App = () => {
               handleUpdate={handleUpdate}
               handleDragStart={handleDragStart}
               handleDragOver={handleDragOver}
-              handleDrop={handleDrop}
               handleDragEnd={handleDragEnd}
             ></TodoList>
           </div>

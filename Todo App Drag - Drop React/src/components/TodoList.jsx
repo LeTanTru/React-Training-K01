@@ -8,8 +8,7 @@ const TodoList = ({
   handleUpdate,
   handleDragStart,
   handleDragEnd,
-  handleDragOver,
-  handleDrop
+  handleDragOver
 }) => {
   return (
     <div className='mt-2 flex w-full flex-col gap-y-2'>
@@ -27,7 +26,6 @@ const TodoList = ({
           handleUpdate={handleUpdate}
           handleDragStart={handleDragStart}
           handleDragOver={handleDragOver}
-          handleDrop={handleDrop}
           handleDragEnd={handleDragEnd}
         ></TodoItem>
       ))}
