@@ -43,7 +43,7 @@ export default [
       'no-multiple-empty-lines': 1,
       'space-before-blocks': ['error', 'always'],
       'object-curly-spacing': [1, 'always'],
-      indent: ['warn', 2],
+      indent: ['off', 2],
       quotes: ['warn', 'single'],
       'array-bracket-spacing': 1,
       'linebreak-style': 0,

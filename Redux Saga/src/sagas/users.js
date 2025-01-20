@@ -28,11 +28,16 @@ function* watchGetUsersRequest() {
 
 function* createUser({ payload }) {
   try {
-    yield call(api.createUser, {
-      firstName: payload.firstName,
-      lastName: payload.lastName
-    });
-    yield call(getUsers);
+    // yield call(api.createUser, {
+    //   firstName: payload.firstName,
+    //   lastName: payload.lastName
+    // });
+    // yield call(getUsers);
+    yield put(
+      actions.usersError({
+        error: 'An error occurred when trying to delete the user'
+      })
+    );
   } catch (error) {
     yield put(
       actions.usersError({
@@ -49,7 +54,6 @@ function* watchCreateUserRequest() {
 function* deleteUser(userId) {
   try {
     yield call(api.deleteUser, userId);
-
     yield call(getUsers);
   } catch (e) {
     yield put(

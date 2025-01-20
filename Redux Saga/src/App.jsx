@@ -7,54 +7,43 @@ import {
 import NewUserForm from '@/components/NewUserForm';
 import UserList from '@/components/UserList';
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Alert, Fade } from 'reactstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { Alert } from 'reactstrap';
 
-const App = ({
-  users,
-  getUsersRequest,
-  createUserRequest,
-  deleteUserRequest,
-  usersError
-}) => {
+const App = () => {
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users);
+
   useEffect(() => {
-    getUsersRequest();
-  }, [getUsersRequest]);
+    dispatch(getUsersRequest());
+  }, [dispatch]);
 
   const handleSubmit = ({ firstName, lastName }) => {
-    createUserRequest({ firstName, lastName });
+    dispatch(createUserRequest({ firstName, lastName }));
   };
 
   const handleDeleteUser = (userId) => {
-    deleteUserRequest(userId);
+    dispatch(deleteUserRequest(userId));
   };
 
   const handleCloseAlert = () => {
-    usersError({
-      error: ''
-    });
+    dispatch(usersError({ error: '' }));
   };
 
   return (
     <div className='mx-auto w-[600px] p-5'>
-      <Alert color='danger' isOpen={!!users.error} toggle={handleCloseAlert}>
-        <Alert
-          color='danger'
-          isOpen={!!users.error}
-          timeout={500}
-          toggle={handleCloseAlert}
-        >
-          <Fade in={!!users.error} timeout={500}></Fade>
-        </Alert>
+      <Alert
+        color='danger'
+        isOpen={!!users.error}
+        timeout={500}
+        toggle={handleCloseAlert}
+      >
+        {users.error}
       </Alert>
       <NewUserForm onSubmit={handleSubmit} />
       <UserList users={users.items} onDeleteUser={handleDeleteUser} />
     </div>
   );
 };
-export default connect(({ users }) => ({ users }), {
-  getUsersRequest,
-  createUserRequest,
-  deleteUserRequest,
-  usersError
-})(App);
+
+export default App;
