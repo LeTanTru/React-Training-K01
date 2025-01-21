@@ -6,11 +6,6 @@
       "lastName": "Mackenzie"
     },
     {
-      "firstName": "Cindy",
-      "lastName": "Zhang",
-      "id": "2"
-    },
-    {
       "id": "3",
       "firstName": "Ted",
       "lastName": "Smith"
@@ -19,11 +14,6 @@
       "id": "4",
       "firstName": "Susan",
       "lastName": "Fernbrook"
-    },
-    {
-      "firstName": "Emily",
-      "lastName": "Kim2",
-      "id": "5"
     },
     {
       "id": "6",
@@ -41,9 +31,9 @@
       "lastName": "Kim"
     },
     {
-      "id": "10",
       "firstName": "Emily",
-      "lastName": "Mackenzie"
+      "lastName": "Mackenzie",
+      "id": "10"
     }
   ],
   "offset": 0,

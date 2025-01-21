@@ -30,6 +30,7 @@ const UpdateUserFormAntd = ({ user, setUser, onSubmit, onCancel }) => {
             message: 'Please input your first name !'
           }
         ]}
+        className='mb-2'
       >
         <Input
           className='py-2 outline-none focus:border-[#86b7fe] focus:bg-[color:var(--bs-body-bg)] focus:text-[color:var(--bs-body-color)] focus:shadow-[0_0_0_0.25rem_rgba(13,110,253,0.25)]'
@@ -48,9 +49,10 @@ const UpdateUserFormAntd = ({ user, setUser, onSubmit, onCancel }) => {
             message: 'Please input your last name !'
           }
         ]}
+        className='mb-2'
       >
         <Input
-          className='py-2 outline-none focus:border-[#86b7fe] focus:bg-[color:var(--bs-body-bg)] focus:text-[color:var(--bs-body-color)] focus:shadow-[0_0_0_0.25rem_rgba(13,110,253,0.25)]'
+          className='mb-2 py-2 outline-none focus:border-[#86b7fe] focus:bg-[color:var(--bs-body-bg)] focus:text-[color:var(--bs-body-color)] focus:shadow-[0_0_0_0.25rem_rgba(13,110,253,0.25)]'
           placeholder='Enter last name...'
           name='lastName'
           value={user.lastName}
