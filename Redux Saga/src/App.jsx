@@ -9,13 +9,17 @@ import { Alert } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import NewUserForm from '@/components/NewUserForm';
-import UpdateUserForm from '@/components/UpdateUserForm';
 import UserList from '@/components/UserList';
+import UpdateUserForm from '@/components/UpdateUserForm';
+import { Col, Row } from 'antd';
+import NewUserFormAntd from '@/components/antd/NewUserFormAntd';
+import UserListAntd from '@/components/antd/UserListAntd';
+import UpdateUserFormAntd from '@/components/antd/UpdateUserFormAntd';
 
 const App = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
-  const [updatedUser, setUpdatedUser] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     dispatch(getUsersRequest());
@@ -35,33 +39,55 @@ const App = () => {
 
   const handleUpdateUser = (user) => {
     dispatch(updateUserRequest(user));
-    setUpdatedUser(null);
+    setUser(null);
   };
 
   return (
-    <div className='mx-auto w-[600px] p-5'>
-      <Alert
-        color='danger'
-        isOpen={!!users.error}
-        timeout={500}
-        toggle={handleCloseAlert}
-      >
-        {users.error}
-      </Alert>
-      {updatedUser ? (
-        <UpdateUserForm
-          onSubmit={handleUpdateUser}
-          onCancel={() => setUpdatedUser(null)}
-          user={updatedUser}
-        />
-      ) : (
-        <NewUserForm onSubmit={handleSubmit} />
-      )}
-      <UserList
-        users={users.items}
-        setUpdatedUser={setUpdatedUser}
-        onDeleteUser={handleDeleteUser}
-      />
+    <div className='mx-auto w-[1200px] p-5'>
+      <Row gutter={16} justify={'center'}>
+        <Col span={12}>
+          <Alert
+            color='danger'
+            isOpen={!!users.error}
+            timeout={500}
+            toggle={handleCloseAlert}
+          >
+            {users.error}
+          </Alert>
+          {user ? (
+            <UpdateUserForm
+              onSubmit={handleUpdateUser}
+              onCancel={() => setUser(null)}
+              user={user}
+              setUser={setUser}
+            />
+          ) : (
+            <NewUserForm onSubmit={handleSubmit} />
+          )}
+          <UserList
+            users={users.items}
+            setUser={setUser}
+            onDeleteUser={handleDeleteUser}
+          />
+        </Col>
+        <Col span={12}>
+          {user ? (
+            <UpdateUserFormAntd
+              onSubmit={handleUpdateUser}
+              onCancel={() => setUser(null)}
+              user={user}
+              setUser={setUser}
+            />
+          ) : (
+            <NewUserFormAntd onSubmit={handleSubmit} />
+          )}
+          <UserListAntd
+            users={users.items}
+            setUser={setUser}
+            onDeleteUser={handleDeleteUser}
+          />
+        </Col>
+      </Row>
     </div>
   );
 };
