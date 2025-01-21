@@ -1,17 +1,14 @@
-import { useState } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 
-const UpdateUserForm = ({ user, onSubmit = () => {}, onCancel = () => {} }) => {
-  const [updatedUser, setUpdatedUser] = useState(user);
-
+const UpdateUserForm = ({ user, setUser, onSubmit, onCancel }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUpdatedUser({ ...updatedUser, [name]: value });
+    setUser({ ...user, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(updatedUser);
+    onSubmit(user);
   };
 
   return (
@@ -22,7 +19,7 @@ const UpdateUserForm = ({ user, onSubmit = () => {}, onCancel = () => {} }) => {
           placeholder='First name'
           required
           name='firstName'
-          value={updatedUser.firstName}
+          value={user.firstName}
           onChange={handleInputChange}
         />
       </FormGroup>
@@ -32,7 +29,7 @@ const UpdateUserForm = ({ user, onSubmit = () => {}, onCancel = () => {} }) => {
           placeholder='Last name'
           required
           name='lastName'
-          value={updatedUser.lastName}
+          value={user.lastName}
           onChange={handleInputChange}
         />
       </FormGroup>

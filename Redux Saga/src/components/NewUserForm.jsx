@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 
 const NewUserForm = ({ onSubmit }) => {
   const [user, setUser] = useState({ firstName: '', lastName: '' });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(user);

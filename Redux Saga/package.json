@@ -7,11 +7,14 @@
     "dev": "vite --port 3000",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "npx json-server db/db.json --port 5000"
   },
   "dependencies": {
+    "antd": "^5.23.2",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
+    "json-server": "^1.0.0-beta.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.2.0",
