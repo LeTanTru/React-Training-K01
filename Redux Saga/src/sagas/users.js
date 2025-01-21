@@ -28,16 +28,16 @@ function* watchGetUsersRequest() {
 
 function* createUser({ payload }) {
   try {
-    // yield call(api.createUser, {
-    //   firstName: payload.firstName,
-    //   lastName: payload.lastName
-    // });
-    // yield call(getUsers);
-    yield put(
-      actions.usersError({
-        error: 'An error occurred when trying to delete the user'
-      })
-    );
+    yield call(api.createUser, {
+      firstName: payload.firstName,
+      lastName: payload.lastName
+    });
+    yield call(getUsers);
+    // yield put(
+    //   actions.usersError({
+    //     error: 'An error occurred when trying to delete the user'
+    //   })
+    // );
   } catch (error) {
     yield put(
       actions.usersError({
@@ -71,10 +71,29 @@ function* watchDeleteUserRequest() {
   }
 }
 
+function* updateUser({ payload }) {
+  try {
+    const { id, firstName, lastName } = payload;
+    yield call(api.updateUser, { id, firstName, lastName });
+    yield call(getUsers);
+  } catch (e) {
+    yield put(
+      actions.usersError({
+        error: 'An error occurred when trying to update the user'
+      })
+    );
+  }
+}
+
+function* watchUpdateUserRequest() {
+  yield takeLatest(actions.Types.UPDATE_USER_REQUEST, updateUser);
+}
+
 const usersSagas = [
   fork(watchGetUsersRequest),
   fork(watchCreateUserRequest),
-  fork(watchDeleteUserRequest)
+  fork(watchDeleteUserRequest),
+  fork(watchUpdateUserRequest)
 ];
 
 export default usersSagas;

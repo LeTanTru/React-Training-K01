@@ -9,12 +9,9 @@ const NewUserForm = ({ onSubmit }) => {
     setUser({ firstName: '', lastName: '' });
   };
 
-  const handleFirstNameChange = (e) => {
-    setUser({ ...user, firstName: e.target.value });
-  };
-
-  const handleLastNameChange = (e) => {
-    setUser({ ...user, lastName: e.target.value });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
   };
 
   return (
@@ -22,8 +19,9 @@ const NewUserForm = ({ onSubmit }) => {
       <FormGroup>
         <Label>First name: </Label>
         <Input
+          name='firstName'
           placeholder='First name'
-          onChange={handleFirstNameChange}
+          onChange={handleInputChange}
           value={user.firstName}
           required
         />
@@ -31,19 +29,15 @@ const NewUserForm = ({ onSubmit }) => {
       <FormGroup>
         <Label>Last name: </Label>
         <Input
+          name='lastName'
           placeholder='Last name'
-          onChange={handleLastNameChange}
+          onChange={handleInputChange}
           value={user.lastName}
           required
         />
       </FormGroup>
       <FormGroup>
-        <Button
-          block
-          outline
-          type='submit'
-          color='primary'
-        >
+        <Button block outline type='submit' color='primary'>
           Create
         </Button>
       </FormGroup>

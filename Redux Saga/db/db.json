@@ -6,9 +6,9 @@
       "lastName": "Mackenzie"
     },
     {
-      "id": "2",
       "firstName": "Cindy",
-      "lastName": "Zhang"
+      "lastName": "Zhang",
+      "id": "2"
     },
     {
       "id": "3",
@@ -29,11 +29,6 @@
       "id": "6",
       "firstName": "Peter",
       "lastName": "Zhang"
-    },
-    {
-      "id": "7",
-      "firstName": "Cindy",
-      "lastName": "Smith"
     },
     {
       "id": "8",

@@ -1,6 +1,6 @@
 import { Button, ListGroup, ListGroupItem } from 'reactstrap';
 
-const UserList = ({ users, onDeleteUser }) => {
+const UserList = ({ users, onDeleteUser, setUpdatedUser }) => {
   return (
     <ListGroup>
       {users &&
@@ -18,7 +18,14 @@ const UserList = ({ users, onDeleteUser }) => {
                 <div className='mx-0 my-auto flex-1'>
                   {user.firstName} {user.lastName}
                 </div>
-                <div>
+                <div className='flex gap-x-2'>
+                  <Button
+                    outline
+                    color='primary'
+                    onClick={() => setUpdatedUser(user)}
+                  >
+                    Update
+                  </Button>
                   <Button
                     outline
                     color='danger'
