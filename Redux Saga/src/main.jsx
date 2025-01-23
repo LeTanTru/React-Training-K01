@@ -1,10 +1,10 @@
 import { createRoot } from 'react-dom/client';
 import './index.scss';
-import reducers from './reducers';
+import reducers from './redux/reducers';
 import { createStore, applyMiddleware } from 'redux';
 import axios from 'axios';
 import createSagaMiddleware from 'redux-saga';
-import rootSaga from './sagas';
+import rootSaga from './redux/sagas';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { RouterProvider } from 'react-router-dom';
 import { router } from '@/routers';

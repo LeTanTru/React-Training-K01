@@ -6,7 +6,7 @@ import {
   takeEvery,
   takeLatest
 } from 'redux-saga/effects';
-import * as actions from '@/actions/users';
+import * as actions from '@/redux/actions/users';
 import * as api from '@/apis/users';
 
 function* getUsers() {

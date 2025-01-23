@@ -1,4 +1,4 @@
-import { getUserByIdRequest, updateUserRequest } from '@/actions/users';
+import { getUserByIdRequest, updateUserRequest } from '@/redux/actions/users';
 import { Button, Col, Form, Input, Row, Typography } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -90,7 +90,7 @@ const UpdateUser = () => {
                 block
                 type='default'
                 htmlType='button'
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/user')}
               >
                 Back
               </Button>

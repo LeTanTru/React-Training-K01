@@ -4,7 +4,7 @@ import {
   getUsersRequest,
   updateUserRequest,
   usersError
-} from '@/actions/users';
+} from '@/redux/actions/users';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
