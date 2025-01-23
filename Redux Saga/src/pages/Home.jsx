@@ -2,7 +2,7 @@ import {
   createUserRequest,
   deleteUserRequest,
   getUsersRequest
-} from '@/actions/users';
+} from '@/redux/actions/users';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Col, Row } from 'antd';
@@ -30,7 +30,7 @@ const Home = () => {
       <Col span={12}>
         <NewUserFormAntd onSubmit={handleSubmit} />
         {loading ? (
-          <div className='h-10 w-10 mx-auto animate-spin rounded-full border-4 border-solid border-blue-500 border-t-transparent'></div>
+          <div className='mx-auto h-10 w-10 animate-spin rounded-full border-4 border-solid border-blue-500 border-t-transparent'></div>
         ) : (
           <UserListAntd users={users} onDeleteUser={handleDeleteUser} />
         )}

@@ -1,4 +1,4 @@
-import { Types } from '@/actions/users';
+import { Types } from '@/redux/actions/users';
 
 const INITIAL_STATE = {
   users: [],
