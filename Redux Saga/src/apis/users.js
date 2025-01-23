@@ -21,3 +21,7 @@ export const updateUser = ({ id, firstName, lastName }) => {
 export const deleteUser = (userId) => {
   return axios.delete(`/users/${userId}`);
 };
+
+export const getUserById = (userId) => {
+  return axios.get(`/users/${userId}`);
+};

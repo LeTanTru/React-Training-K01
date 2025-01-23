@@ -1,9 +1,9 @@
 {
   "users": [
     {
-      "id": "1",
       "firstName": "Peter",
-      "lastName": "Mackenzie"
+      "lastName": "Mackenzie",
+      "id": "1"
     },
     {
       "id": "3",
@@ -16,9 +16,9 @@
       "lastName": "Fernbrook"
     },
     {
-      "id": "6",
       "firstName": "Peter",
-      "lastName": "Zhang"
+      "lastName": "Zhang",
+      "id": "6"
     },
     {
       "id": "8",
@@ -29,11 +29,6 @@
       "id": "9",
       "firstName": "Susan",
       "lastName": "Kim"
-    },
-    {
-      "firstName": "Emily",
-      "lastName": "Mackenzie",
-      "id": "10"
     }
   ],
   "offset": 0,
