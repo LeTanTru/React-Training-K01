@@ -10,7 +10,6 @@ const NewUserFormAntd = ({ onSubmit }) => {
 
   return (
     <Form
-      name='update-user-form'
       wrapperCol={{
         span: 24
       }}
@@ -49,13 +48,13 @@ const NewUserFormAntd = ({ onSubmit }) => {
         className='mb-3'
       >
         <Input
-          className='py-1.5 outline-none focus:border-[#86b7fe] focus:bg-[color:var(--bs-body-bg)] focus:text-[color:var(--bs-body-color)] focus:shadow-[0_0_0_0.25rem_rgba(13,110,253,0.25)]'
+          className='mb-2 py-1.5 outline-none focus:border-[#86b7fe] focus:bg-[color:var(--bs-body-bg)] focus:text-[color:var(--bs-body-color)] focus:shadow-[0_0_0_0.25rem_rgba(13,110,253,0.25)]'
           placeholder='Enter last name...'
           name='lastName'
         />
       </Form.Item>
 
-      <Button className='py-[18px]' block type='primary' htmlType='submit'>
+      <Button className='mb-2 py-[18px]' block type='primary' htmlType='submit'>
         Create
       </Button>
     </Form>

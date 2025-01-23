@@ -1,14 +1,14 @@
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.scss';
-import App from '@/App';
 import reducers from './reducers';
-import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import axios from 'axios';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './sagas';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { RouterProvider } from 'react-router-dom';
+import { router } from '@/routers';
+import { Provider } from 'react-redux';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -23,7 +23,7 @@ sagaMiddleware.run(rootSaga);
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
   <Provider store={store}>
-    <App />
+    <RouterProvider router={router} />
   </Provider>
   // </StrictMode>
 );

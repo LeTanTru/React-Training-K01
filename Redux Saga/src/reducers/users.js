@@ -1,7 +1,8 @@
 import { Types } from '@/actions/users';
 
 const INITIAL_STATE = {
-  items: []
+  users: [],
+  loading: true
 };
 
 export default function users(state = INITIAL_STATE, action) {
@@ -9,13 +10,15 @@ export default function users(state = INITIAL_STATE, action) {
     case Types.GET_USERS_SUCCESS: {
       return {
         ...state,
-        items: action.payload.items
+        users: action.payload.users,
+        loading: action.payload.loading
       };
     }
     case Types.USERS_ERROR: {
       return {
         ...state,
-        error: action.payload.error
+        error: action.payload.error,
+        loading: action.payload.loading
       };
     }
     default: {

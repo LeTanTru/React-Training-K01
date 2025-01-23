@@ -1,6 +1,8 @@
 import { Button, Popconfirm, Table } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
-const UserListAntd = ({ users, setUser, onDeleteUser }) => {
+const UserListAntd = ({ users, onDeleteUser }) => {
+  const navigate = useNavigate();
   const dataSource = users.map((user) => ({ ...user, key: user.id }));
 
   const columns = [
@@ -22,7 +24,7 @@ const UserListAntd = ({ users, setUser, onDeleteUser }) => {
             <Button
               color='primary'
               variant='outlined'
-              onClick={() => setUser(record)}
+              onClick={() => navigate(`/user/${record.id}`)}
             >
               Update
             </Button>
