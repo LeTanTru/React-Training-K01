@@ -13,8 +13,8 @@ import { Provider } from 'react-redux';
 const sagaMiddleware = createSagaMiddleware();
 
 axios.defaults.withCredentials = false;
-axios.defaults.baseURL = 'http://localhost:5000';
-// axios.defaults.baseURL = 'https://mithril-rem.fly.dev/api';
+// axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
 
 const store = createStore(reducers, applyMiddleware(sagaMiddleware));
 

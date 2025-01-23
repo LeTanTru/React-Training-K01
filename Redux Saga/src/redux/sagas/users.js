@@ -88,7 +88,9 @@ function* getUserById({ payload }) {
   try {
     const { userId } = payload;
     const result = yield call(api.getUserById, userId);
-    yield put(actions.getUsersSuccess({ users: [result.data] }));
+    yield put(
+      actions.getUsersSuccess({ users: [result.data], loading: false })
+    );
   } catch (e) {
     yield put(
       actions.usersError({

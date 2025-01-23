@@ -1,6 +1,7 @@
 import Home from '@/pages/Home';
 import RootLayout from '@/pages/RootLayout';
 import UpdateUser from '@/pages/UpdateUser';
+import UserDetail from '@/pages/UserDetail';
 import { createBrowserRouter, Link } from 'react-router-dom';
 
 export const router = createBrowserRouter([
@@ -24,9 +25,13 @@ export const router = createBrowserRouter([
         path: '/user',
         element: <Home />
       },
+      // {
+      //   path: '/user/:id',
+      //   element: <UpdateUser />
+      // },
       {
         path: '/user/:id',
-        element: <UpdateUser />
+        element: <UserDetail />
       }
     ]
   }

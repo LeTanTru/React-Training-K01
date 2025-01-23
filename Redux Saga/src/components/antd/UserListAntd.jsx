@@ -7,41 +7,71 @@ const UserListAntd = ({ users, onDeleteUser }) => {
 
   const columns = [
     {
-      title: 'First name',
-      dataIndex: 'firstName',
-      key: 'firstName'
+      title: 'Id',
+      dataIndex: 'id',
+      key: 'id'
     },
     {
-      title: 'Last name',
-      dataIndex: 'lastName',
-      key: 'lastName'
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name'
     },
     {
-      dataIndex: 'operation',
-      render: (_, record) => {
-        return dataSource.length >= 1 ? (
-          <div className='flex justify-end gap-x-2'>
-            <Button
-              color='primary'
-              variant='outlined'
-              onClick={() => navigate(`/user/${record.id}`)}
-            >
-              Update
-            </Button>
-            <Popconfirm
-              title='Sure to delete?'
-              onConfirm={() => onDeleteUser(record.id)}
-            >
-              <Button color='danger' variant='outlined'>
-                Delete
-              </Button>
-            </Popconfirm>
-          </div>
-        ) : null;
-      }
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email'
+    },
+    {
+      title: 'Phone',
+      dataIndex: 'phone',
+      key: 'phone'
+    },
+    {
+      title: 'Username',
+      dataIndex: 'username',
+      key: 'username'
+    },
+    {
+      title: 'Website',
+      dataIndex: 'website',
+      key: 'website'
     }
+    // ,
+    // {
+    //   dataIndex: 'operation',
+    //   render: (_, record) => (
+    //     <div className='flex justify-end gap-x-2'>
+    //       <Button
+    //         color='primary'
+    //         variant='outlined'
+    //         onClick={() => navigate(`/user/${record.id}`)}
+    //       >
+    //         Update
+    //       </Button>
+    //       <Popconfirm
+    //         title='Sure to delete?'
+    //         onConfirm={() => onDeleteUser(record.id)}
+    //       >
+    //         <Button color='danger' variant='outlined'>
+    //           Delete
+    //         </Button>
+    //       </Popconfirm>
+    //     </div>
+    //   )
+    // }
   ];
 
-  return <Table pagination={false} dataSource={dataSource} columns={columns} />;
+  return (
+    <Table
+      pagination={false}
+      dataSource={dataSource}
+      columns={columns}
+      onRow={(record) => ({
+        onClick: () => navigate(`/user/${record.id}`),
+        className: 'cursor-pointer'
+      })}
+    />
+  );
 };
+
 export default UserListAntd;

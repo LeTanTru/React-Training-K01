@@ -5,10 +5,11 @@ import {
 } from '@/redux/actions/users';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { Col, Row } from 'antd';
+import { Col, Row, Spin } from 'antd';
 import NewUserFormAntd from '@/components/antd/NewUserFormAntd';
 import UserListAntd from '@/components/antd/UserListAntd';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -57,10 +58,14 @@ const Home = () => {
           transition={Bounce}
         />
       )}
-      <Col span={12}>
+      {/* <Col span={12}>
         <NewUserFormAntd onSubmit={handleSubmit} />
+      </Col> */}
+      <Col span={24}>
         {loading ? (
-          <div className='mx-auto h-10 w-10 animate-spin rounded-full border-4 border-solid border-blue-500 border-t-transparent'></div>
+          <div className='flex items-center justify-center'>
+            <Spin indicator={<LoadingOutlined spin />} size='large' />
+          </div>
         ) : (
           <UserListAntd users={users} onDeleteUser={handleDeleteUser} />
         )}
