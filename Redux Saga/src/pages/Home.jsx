@@ -4,20 +4,34 @@ import {
   getUsersRequest
 } from '@/redux/actions/users';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Row, Spin } from 'antd';
 import NewUserFormAntd from '@/components/antd/NewUserFormAntd';
 import UserListAntd from '@/components/antd/UserListAntd';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { LoadingOutlined } from '@ant-design/icons';
+import { useFetch } from '@/hooks/useFetch';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { users, loading, error } = useSelector((state) => state.users);
+  // const { users, loading, error } = useSelector((state) => state.users);
+  // const { loading, error } = useSelector((state) => state.users);
+  const [users, setUsers] = useState([]);
+  console.log('🚀 ~ Home ~ users:', users);
+
+  const {
+    data,
+    isLoading: loading,
+    error
+  } = useFetch('https://jsonplaceholder.typicode.com/users');
 
   useEffect(() => {
-    dispatch(getUsersRequest());
-  }, [dispatch]);
+    if (data) setUsers(data);
+  }, [data]);
+
+  // useEffect(() => {
+  //   dispatch(getUsersRequest());
+  // }, [dispatch]);
 
   const handleSubmit = ({ firstName, lastName }) => {
     dispatch(createUserRequest({ firstName, lastName }));
