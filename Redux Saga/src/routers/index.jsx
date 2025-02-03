@@ -1,3 +1,4 @@
+import CreateUserPage from '@/pages/CreateUserPage';
 import Home from '@/pages/Home';
 import RootLayout from '@/pages/RootLayout';
 import UpdateUser from '@/pages/UpdateUser';
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: '/user',
         element: <Home />
+      },
+      {
+        path: '/user/create',
+        element: <CreateUserPage />
       },
       {
         path: '/user/:id',

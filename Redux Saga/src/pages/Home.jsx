@@ -6,9 +6,9 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Col, Row } from 'antd';
-import NewUserFormAntd from '@/components/antd/NewUserFormAntd';
 import UserListAntd from '@/components/antd/UserListAntd';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -42,23 +42,26 @@ const Home = () => {
 
   return (
     <Row gutter={16} justify={'center'}>
-      {error && (
-        <ToastContainer
-          position='top-right'
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme='light'
-          transition={Bounce}
-        />
-      )}
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+        transition={Bounce}
+      />
+
       <Col span={12}>
-        <NewUserFormAntd onSubmit={handleSubmit} />
+        <button className='ml-auto mb-2 block rounded-lg bg-blue-600 px-4 py-2 text-right hover:opacity-80'>
+          <Link to='/user/create' className='text-white no-underline'>
+            Create new user
+          </Link>
+        </button>
         {loading ? (
           <div className='mx-auto h-10 w-10 animate-spin rounded-full border-4 border-solid border-blue-500 border-t-transparent'></div>
         ) : (
