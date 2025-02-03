@@ -18,6 +18,7 @@ const NewUserFormAntd = ({ onSubmit }) => {
       onFinish={handleSubmit}
       initialValues={{ firstName: '', lastName: '' }}
       form={form}
+      className='mb-2'
     >
       <Form.Item
         name='firstName'
