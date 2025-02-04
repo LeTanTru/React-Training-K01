@@ -1,6 +1,5 @@
 import { toastOption } from '@/constants';
 import { useFetch, useLocalStorage } from '@/hooks';
-import { omit } from 'lodash';
 import { FilePenLine, LogOut, User } from 'lucide-react';
 import { useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
@@ -22,14 +21,10 @@ const Navbar = () => {
   );
 
   useEffect(() => {
-    if (data) {
-      setStoredUser(omit(data, ['password']));
-    }
-
     if (error) {
       toast.error('Failed to fetch user data. Please try again.', toastOption);
     }
-  }, [data, error, setStoredUser]);
+  }, [error]);
 
   if (!storedUser?.id || location.pathname === '/login') return null;
 

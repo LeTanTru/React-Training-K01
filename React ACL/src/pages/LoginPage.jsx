@@ -7,8 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const LoginPage = () => {
-  const { setItem, getItem } = useLocalStorage('user');
-  const storedUser = getItem();
+  const { setItem } = useLocalStorage('user');
   const [form] = Form.useForm();
   const [credentials, setCredentials] = useState(null);
   const [url, setUrl] = useState('');
@@ -61,7 +60,7 @@ const LoginPage = () => {
     if (error) {
       toast.error('Something went wrong. Please try again.', toastOption);
     }
-  }, [data, error]);
+  }, [data, error, handleRolePermission, setItem]);
 
   const handleSubmit = (values) => {
     setCredentials(values);

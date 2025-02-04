@@ -1,4 +1,4 @@
 const EditorPage = () => {
-  return <div>EditorPage</div>;
+  return <div className='text-3xl font-bold text-white'>EditorPage</div>;
 };
 export default EditorPage;

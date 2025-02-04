@@ -12,14 +12,14 @@
       "name": "Jane Smith",
       "username": "editor1",
       "password": "123",
-      "role": "User"
+      "role": "Editor"
     },
     {
       "id": "3",
       "name": "Mike Johnson",
       "username": "user1",
       "password": "123",
-      "role": "Editor"
+      "role": "User"
     },
     {
       "id": "4",

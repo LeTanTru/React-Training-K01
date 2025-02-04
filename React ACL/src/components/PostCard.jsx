@@ -10,6 +10,7 @@ const PostCard = ({ post }) => {
   const handleClick = () => {
     const user = getItem();
     const role = user?.role;
+
     if (role === 'Admin') navigate(`/admin/post/${post.id}`);
     else if (role === 'Editor') navigate(`/editor/post/${post.id}`);
     else navigate(`/post/${post.id}`);
