@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { useFetch } from '@/hooks';
+import { useFetch, useLocalStorage } from '@/hooks';
 import { Button, Col, Form, Input, Row, Select, Typography } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateUserRequest } from '@/redux/reducer/userReducer';
 import { Loading } from '@/components';
 import { toast } from 'react-toastify';
+import { toastOption } from '@/constants';
 
 const EditUserPage = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const EditUserPage = () => {
   const [form] = Form.useForm();
   const { id } = useParams();
   const navigate = useNavigate();
+  const { getItem } = useLocalStorage('user');
 
   const { data, loading, error } = useFetch(`/users/${id}`);
 
@@ -29,11 +31,12 @@ const EditUserPage = () => {
   }, [data, form]);
 
   useEffect(() => {
-    if (error) toast.error('Error while fetching data !');
+    if (error) toast.error('Error while fetching data !', toastOption);
   }, [error]);
 
   const handleFinish = (values) => {
     dispatch(updateUserRequest(values));
+    toast.success('Updated user successfully !', toastOption);
     navigate('/admin/user');
   };
 
@@ -73,6 +76,7 @@ const EditUserPage = () => {
                 className='mb-1!'
               >
                 <Input
+                  disabled
                   className='py-2 outline-none focus:border-[#86b7fe] focus:bg-[color:var(--bs-body-bg)] focus:text-[color:var(--bs-body-color)] focus:shadow-[0_0_0_0.25rem_rgba(13,110,253,0.25)]'
                   placeholder='Enter id...'
                   name='id'
@@ -107,6 +111,7 @@ const EditUserPage = () => {
                 className='mb-1!'
               >
                 <Input
+                  disabled
                   className='py-2 outline-none focus:border-[#86b7fe] focus:bg-[color:var(--bs-body-bg)] focus:text-[color:var(--bs-body-color)] focus:shadow-[0_0_0_0.25rem_rgba(13,110,253,0.25)]'
                   placeholder='Enter username...'
                   name='username'
@@ -141,6 +146,7 @@ const EditUserPage = () => {
                 className='mb-1!'
               >
                 <Select
+                  disabled={id === getItem()?.id}
                   style={{
                     width: 120
                   }}

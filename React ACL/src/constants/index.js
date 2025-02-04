@@ -81,7 +81,7 @@ export const ROLE_PERMISSIONS = {
 
 export const toastOption = {
   position: 'top-right',
-  autoClose: 5000,
+  autoClose: 2000,
   hideProgressBar: false,
   closeOnClick: false,
   pauseOnHover: true,

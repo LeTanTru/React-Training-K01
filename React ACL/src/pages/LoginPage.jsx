@@ -10,43 +10,45 @@ const LoginPage = () => {
   const { setItem, getItem } = useLocalStorage('user');
   const storedUser = getItem();
   const [form] = Form.useForm();
-  const [user, setUser] = useState({
-    username: '',
-    password: ''
-  });
+  const [credentials, setCredentials] = useState(null);
   const [url, setUrl] = useState('');
   const { data, loading, error } = useFetch(url);
   const navigate = useNavigate();
 
-  const handleSubmit = (values) => {
-    const { username, password } = values;
-    setUser({ username, password });
-  };
+  const handleRolePermission = useCallback(
+    (role) => {
+      if (!role) return;
+      const rolePaths = {
+        Admin: '/admin',
+        Editor: '/editor',
+        User: '/'
+      };
+      navigate(rolePaths[role] || '/');
+    },
+    [navigate]
+  );
 
-  const handleRolePermission = useCallback((role) => {
-    if (role === 'Admin') navigate('/admin');
-    if (role === 'Editor') navigate('/editor');
-    if (role === 'User') navigate('/');
-  });
+  // useEffect(() => {
+  //   if (storedUser?.role) {
+  //     handleRolePermission(storedUser.role);
+  //   }
+  // }, [handleRolePermission, storedUser?.role]);
 
   useEffect(() => {
-    handleRolePermission(storedUser?.role);
-  }, [handleRolePermission, storedUser?.role]);
-
-  useEffect(() => {
-    if (user.username && user.password) {
-      setUrl(`/users/?username=${user.username}&password=${user.password}`);
+    if (credentials) {
+      const { username, password } = credentials;
+      setUrl(`/users/?username=${username}&password=${password}`);
     }
-  }, [user]);
+  }, [credentials]);
 
   useEffect(() => {
     if (data) {
-      if (data?.length === 0) {
+      if (data.length === 0) {
         toast.error('Invalid username or password.', toastOption);
       } else {
-        toast.success('Login success.', toastOption);
         const [user] = data;
         const { role } = user;
+        toast.success('Login successful.', toastOption);
         setItem({
           id: user.id,
           name: user.name,
@@ -56,11 +58,14 @@ const LoginPage = () => {
         handleRolePermission(role);
       }
     }
-
     if (error) {
-      toast.error('Something went wrong.', toastOption);
+      toast.error('Something went wrong. Please try again.', toastOption);
     }
   }, [data, error]);
+
+  const handleSubmit = (values) => {
+    setCredentials(values);
+  };
 
   return (
     <div className='absolute inset-0 mx-auto flex max-w-sm items-center justify-center'>
@@ -70,7 +75,7 @@ const LoginPage = () => {
           form={form}
           onFinish={handleSubmit}
           className='w-full'
-          initialValues={user}
+          initialValues={{ username: '', password: '' }}
         >
           <Form.Item
             name='username'
@@ -88,7 +93,6 @@ const LoginPage = () => {
           >
             <Input.Password
               prefix={<LockOutlined />}
-              type='password'
               placeholder='Password'
               name='password'
             />
@@ -97,7 +101,7 @@ const LoginPage = () => {
             loading={loading}
             type='primary'
             htmlType='submit'
-            className='ml-auto block w-full text-lg! leading-1!'
+            className='ml-auto block w-full'
           >
             Log in
           </Button>

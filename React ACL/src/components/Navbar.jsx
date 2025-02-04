@@ -1,5 +1,6 @@
 import { toastOption } from '@/constants';
 import { useFetch, useLocalStorage } from '@/hooks';
+import { omit } from 'lodash';
 import { FilePenLine, LogOut, User } from 'lucide-react';
 import { useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
@@ -16,16 +17,20 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, loading, error } = useFetch(`/users/${storedUser?.id}`);
+  const { data, error } = useFetch(
+    storedUser?.id ? `/users/${storedUser.id}` : null
+  );
 
   useEffect(() => {
-    if (data?.role && storedUser) {
-      // Update stored user role if it changes
-      setStoredUser({ ...storedUser, role: data.role });
+    if (data) {
+      setStoredUser(omit(data, ['password']));
     }
-  }, [data?.role, setStoredUser, storedUser]);
 
-  // Prevent rendering if no user is logged in or on the login page
+    if (error) {
+      toast.error('Failed to fetch user data. Please try again.', toastOption);
+    }
+  }, [data, error, setStoredUser]);
+
   if (!storedUser?.id || location.pathname === '/login') return null;
 
   const handleClick = (value) => {
@@ -36,7 +41,7 @@ const Navbar = () => {
     setStoredUser({});
     setCurrentTab('');
     navigate('/login');
-    toast.success('Logout successfully', toastOption);
+    toast.success('Logout successfully !', toastOption);
   };
 
   const navLinks = [
@@ -76,7 +81,7 @@ const Navbar = () => {
           </NavLink>
         ))}
         <span className='px-4 py-2 text-sm text-white transition-all duration-200 ease-linear'>
-          Role: {storedUser?.role}
+          Role: {data?.role}
         </span>
       </div>
       <button
